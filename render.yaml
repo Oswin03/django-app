@@ -3,7 +3,7 @@ services:
     name: django-app
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn App.wsgi
+    startCommand: gunicorn core.wsgi
     plan: free
     envVars:
       - key: DEBUG
