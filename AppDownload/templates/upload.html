@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Screenshot</title>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    .dropzone {
+      border: 2px dashed #0087F7;
+      background: #f0f8ff;
+      padding: 30px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Upload Screenshot for App Task</h2>
+
+  <!-- Dropzone Form -->
+  <form 
+    action="/api/tasks/" 
+    class="dropzone" 
+    id="screenshotDropzone" 
+    enctype="multipart/form-data"
+  >
+    <!-- Required hidden fields -->
+    <input type="hidden" name="app" id="app-id" value="1"> <!-- Change this dynamically -->
+  </form>
+
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <script>
+    Dropzone.autoDiscover = false;
+
+    const token = localStorage.getItem("access_token"); // Store JWT from login
+
+    const myDropzone = new Dropzone("#screenshotDropzone", {
+      paramName: "screenshot", // Django expects this field
+      maxFilesize: 5, // MB
+      acceptedFiles: "image/*",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      init: function () {
+        this.on("sending", function (file, xhr, formData) {
+          const appId = document.getElementById("app-id").value;
+          formData.append("app", appId);
+        });
+        this.on("success", function (file, response) {
+          alert("Screenshot uploaded successfully!");
+        });
+        this.on("error", function (file, errorMessage) {
+          console.error("Upload failed:", errorMessage);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

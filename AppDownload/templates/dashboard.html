@@ -1,0 +1,7 @@
+<h2>User Points</h2>
+<table>
+  <tr><th>Username</th><th>Points</th></tr>
+  {% for user in users %}
+    <tr><td>{{ user.username }}</td><td>{{ user.points }}</td></tr>
+  {% endfor %}
+</table>

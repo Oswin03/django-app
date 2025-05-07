@@ -1,0 +1,31 @@
+<h2>Tasks</h2>
+<form method="get">
+  Filter by:
+  <input name="user" placeholder="User ID">
+  <input name="app" placeholder="App ID">
+  <select name="status">
+    <option value="">All</option>
+    <option value="completed">Completed</option>
+    <option value="pending">Pending</option>
+  </select>
+  <button type="submit">Filter</button>
+</form>
+
+<table>
+  <tr>
+    <th>User</th><th>App</th><th>Screenshot</th><th>Status</th><th>Actions</th>
+  </tr>
+  {% for task in tasks %}
+    <tr>
+      <td>{{ task.user.username }}</td>
+      <td>{{ task.app.name }}</td>
+      <td><a href="{{ task.screenshot.url }}">View</a></td>
+      <td>{{ task.completed }}</td>
+      <td>
+        {% if not task.completed %}
+          <a href="{% url 'mark_task_completed' task.id %}">Mark Completed</a>
+        {% else %} Done {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
