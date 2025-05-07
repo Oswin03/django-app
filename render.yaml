@@ -11,4 +11,4 @@ services:
       - key: SECRET_KEY
         value: 6n)^r%sbl&jgj!an(bx0xk5w#*rz0!z!*-(+)a2=b^^2za3n-t
       - key: ALLOWED_HOSTS
-        value: https://django-app-7l7m.onrender.com
+        value: django-app-7l7m.onrender.com
